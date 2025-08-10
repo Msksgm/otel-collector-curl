@@ -1,0 +1,6 @@
+[tools]
+python = { version = "3.10.12", virtualenv = ".venv" }
+uv = "latest"
+
+[settings]
+python.uv_venv_auto = true
