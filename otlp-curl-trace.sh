@@ -1,19 +1,18 @@
 #!/bin/bash
 
-NOW=$(python - <<'PY'
-import time; print(int(time.time_ns()))
-PY
-)
+# ナノ秒単位の現在時刻を取得
+# macOSの場合はgdate、Linuxの場合はdateコマンドを使用
+if command -v gdate &> /dev/null; then
+    NOW=$(gdate +%s%N)
+else
+    NOW=$(date +%s%N)
+fi
 
-TRACE_ID=$(python - <<'PY'
-import secrets; print(secrets.token_hex(16))
-PY
-)
+# 32文字の16進数文字列を生成 (16バイト)
+TRACE_ID=$(openssl rand -hex 16)
 
-SPAN_ID=$(python - <<'PY'
-import secrets; print(secrets.token_hex(8))
-PY
-)
+# 16文字の16進数文字列を生成 (8バイト)
+SPAN_ID=$(openssl rand -hex 8)
 
 START_TIME=$NOW
 END_TIME=$((NOW + 1000000000))
