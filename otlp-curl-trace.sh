@@ -17,7 +17,9 @@ SPAN_ID=$(openssl rand -hex 8)
 START_TIME=$NOW
 END_TIME=$((NOW + 1000000000))
 
-cat > traces.json <<JSON
+curl -sS -X POST http://localhost:4318/v1/traces \
+  -H 'Content-Type: application/json' \
+  --data-binary @- <<JSON
 {
   "resourceSpans": [{
     "resource": {
@@ -46,9 +48,5 @@ cat > traces.json <<JSON
   }]
 }
 JSON
-
-curl -sS -X POST http://localhost:4318/v1/traces \
-  -H 'Content-Type: application/json' \
-  --data-binary @traces.json
 
 echo "Trace sent with ID: $TRACE_ID"

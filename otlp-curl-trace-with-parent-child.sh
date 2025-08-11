@@ -29,7 +29,9 @@ CHILD_END_TIME=$((NOW + 1500000000))
 CHILD_START_TIME_2=$((NOW + 200000000))
 CHILD_END_TIME_2=$((NOW + 1800000000))
 
-cat > traces-parent-child.json <<JSON
+curl -sS -X POST http://localhost:4318/v1/traces \
+  -H 'Content-Type: application/json' \
+  --data-binary @- <<JSON
 {
   "resourceSpans": [{
     "resource": {
@@ -103,10 +105,6 @@ cat > traces-parent-child.json <<JSON
   }]
 }
 JSON
-
-curl -sS -X POST http://localhost:4318/v1/traces \
-  -H 'Content-Type: application/json' \
-  --data-binary @traces-parent-child.json
 
 echo "Trace sent with:"
 echo "  Trace ID: $TRACE_ID"
