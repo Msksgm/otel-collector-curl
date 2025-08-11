@@ -5,14 +5,15 @@ receivers:
         endpoint: 0.0.0.0:4318
 
 exporters:
-  debug: {}
+  debug: {} # 標準出力で debug ログを出力
   otlp:
-    endpoint: host.docker.internal:4317
+    endpoint: host.docker.internal:4317 # docker を起動した host の 4317 ポートに送信
     tls:
       insecure: true
 
 service:
   pipelines:
+    # trace のパイプライン設定
     traces:
       receivers: [otlp]
       exporters: [debug, otlp]
