@@ -4,7 +4,6 @@ services:
     container_name: otel-collector
     ports:
       - "4318:4318"  # OTLP/HTTP
-      - "9411:9411"  # Zipkin
     volumes:
       - type: bind
         source: ${PWD}/otelcol/config.yaml
