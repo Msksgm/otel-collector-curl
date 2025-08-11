@@ -23,7 +23,8 @@ cat > traces.json <<JSON
   "resourceSpans": [{
     "resource": {
       "attributes": [
-        {"key":"service.name","value":{"stringValue":"curl-client"}}
+        {"key":"service.name","value":{"stringValue":"curl-client"}},
+        {"key":"service.host","value":{"stringValue":"mac"}}
       ]
     },
     "scopeSpans": [{
